@@ -1,0 +1,65 @@
+@forward 'element-plus/theme-chalk/src/common/var.scss' with (
+  // 調整 primary color
+  $colors:
+    (
+      'primary': (
+        'base': #25b1a1
+      ),
+      'warning': (
+        'base': #ffff54
+      ),
+      'success': (
+        'base': #72be38
+      )
+    ),
+  // 修正基礎文字大小
+  $font-size: ('base': 16px),
+  // 修正預設的、不帶樣式的基礎文字顏色
+  $text-color: ('regular': inherit),
+  // 依據水利署顏色定義原則，將開關設為 綠色 success 與 灰色 info
+  $switch: ('on-color': var(--el-color-primary), 'off-color': var(--el-color-info)),
+  // TODO: 重新檢查 large 與 small的尺寸
+  $common-component-size: ('large': 50px, 'default': 47px, 'small': 24px)
+);
+
+@use 'element-plus/theme-chalk/src/index.scss' as *;
+// @use 'element-plus/theme-chalk/src/dark/css-vars.scss' as *;
+// rwd 調整注意事項 裝置斷點為640px
+
+/** 修正 ios手機自動放大 in select mulity */
+.el-select__wrapper {
+  font-size: 16px;
+}
+
+.el-dropdown {
+  line-height: inherit;
+}
+.el-input__wrapper {
+  padding-left: 16px;
+  padding-right: 16px;
+}
+
+/** 微調 card header 過高問題 */
+.el-card__header {
+  padding: 8px var(--el-card-padding);
+}
+
+/** fixing dialog top gap problem */
+.el-dialog__body {
+  padding-top: 8px;
+}
+
+/** 
+ * small mobile dialog fixing
+ * 小手機無論如何都會修正 width 避免超出範圍
+ */
+@media screen and (max-width: 639px) {
+  .el-dialog {
+    --el-dialog-width: calc(100vw - 1.5rem) !important;
+  }
+}
+
+/** 修正 el-message-box 因為同時顯示過多導致黑壓壓一片的問題 */
+.el-overlay.is-message-box:not(:last-child) {
+  @apply opacity-0 transition-opacity;
+}
